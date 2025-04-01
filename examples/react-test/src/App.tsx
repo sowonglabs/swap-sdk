@@ -1,5 +1,4 @@
-import React from 'react';
-import { SwapEmbed } from '@wongcoin/swap-sdk/react';
+import { SwapEmbed } from '@wongcoin/swap-sdk';
 
 function App() {
   return (
@@ -7,7 +6,7 @@ function App() {
       <h1>Swap SDK Test</h1>
       <div style={{ maxWidth: '500px', margin: '0 auto' }}>
         <SwapEmbed
-          iframeUrl="https://metapolls.io/sdk"
+          iframeUrl="http://192.168.1.125:3000/sdk"
           token="0XD6E4DF460D9BA104DFC5DC57DB392C177083D20C"
           chainId="33139"
           width="100%"

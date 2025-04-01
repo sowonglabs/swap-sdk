@@ -57,23 +57,22 @@
         // Import dependencies
         import React from 'https://unpkg.com/react@18.2.0/umd/react.production.min.js';
         import ReactDOM from 'https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js';
-        import { SwapSDK, SwapEmbed } from 'https://unpkg.com/@wongcoin/swap-sdk@1.0.8/dist/index.mjs';
+        import { SwapSDK, SwapEmbed } from 'https://unpkg.com/@wongcoin/swap-sdk@1.0.9/dist/index.mjs';
+
         // Core SDK Example
         let swapSDK = null;
-        const swapContainer = document.getElementById('swap-container');
 
         // Add click event listener to the button
         document.getElementById('startSwapBtn').addEventListener('click', async () => {
             try {
-                swapSDK = new SwapSDK({
+                swapSDK = new SwapSDK();
+                await swapSDK.initializeSwap({
                     iframeUrl: 'https://metapolls.io/sdk',
                     width: '100%',
                     height: '600px',
                     token: '0x123...', // Replace with actual token address
-                    chainId: 1 // Replace with desired chain ID
+                    chainId: '1' // Replace with desired chain ID
                 });
-
-                await swapSDK.initializeSwap();
             } catch (error) {
                 console.error('Failed to initialize swap:', error);
             }
@@ -81,14 +80,14 @@
 
         // React Component Example
         const root = ReactDOM.createRoot(document.getElementById('react-root'));
-
+        
         root.render(
             React.createElement(SwapEmbed, {
                 iframeUrl: 'https://metapolls.io/sdk',
                 width: '100%',
                 height: '600px',
                 token: '0x123...', // Replace with actual token address
-                chainId: 1 // Replace with desired chain ID
+                chainId: '1' // Replace with desired chain ID
             })
         );
     </script>
