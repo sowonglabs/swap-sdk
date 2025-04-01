@@ -1,13 +1,13 @@
-# @metapolls/swap-sdk
+# @wongcoin/swap-sdk
 
 A framework-agnostic SDK for integrating swap functionality into your application.
 
 ## Installation
 
 ```bash
-npm install @metapolls/swap-sdk
+npm install @wongcoin/swap-sdk
 # or
-yarn add @metapolls/swap-sdk
+yarn add @wongcoin/swap-sdk
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ yarn add @metapolls/swap-sdk
 ### Core SDK
 
 ```typescript
-import { SwapSDK } from '@metapolls/swap-sdk';
+import { SwapSDK } from '@wongcoin/swap-sdk';
 
 const sdk = new SwapSDK();
 
@@ -38,7 +38,7 @@ await sdk.disconnect();
 ### React Component
 
 ```typescript
-import { SwapWidget } from '@metapolls/swap-sdk/react';
+import { SwapWidget } from '@wongcoin/swap-sdk/react';
 
 function App() {
   return (
