@@ -1,15 +1,13 @@
-# @wongcoin/swap-sdk
+# @metapolls/swap-sdk
 
-SDK for integrating swap functionality into your application.
+A framework-agnostic SDK for integrating swap functionality into your application.
 
 ## Installation
 
 ```bash
-npm install @wongcoin/swap-sdk
+npm install @metapolls/swap-sdk
 # or
-yarn add @wongcoin/swap-sdk
-# or
-pnpm add @wongcoin/swap-sdk
+yarn add @metapolls/swap-sdk
 ```
 
 ## Usage
@@ -17,98 +15,85 @@ pnpm add @wongcoin/swap-sdk
 ### Core SDK
 
 ```typescript
-import { SwapSDK } from '@wongcoin/swap-sdk';
+import { SwapSDK } from '@metapolls/swap-sdk';
 
-const swapSDK = new SwapSDK({
-    iframeUrl: 'https://metapolls.io/sdk',
-    width: '100%',
-    height: '600px',
-    token: '0x123...', // Replace with actual token address
-    chainId: 1 // Replace with desired chain ID
+const sdk = new SwapSDK();
+
+// Initialize a swap
+await sdk.initializeSwap({
+  token: '0x...', // Token address
+  amount: '1.0', // Optional amount
+  onSuccess: (txHash) => {
+    console.log('Swap successful:', txHash);
+  },
+  onError: (error) => {
+    console.error('Swap failed:', error);
+  }
 });
 
-await swapSDK.initializeSwap();
+// Clean up when done
+await sdk.disconnect();
 ```
 
 ### React Component
 
-```tsx
-import { SwapEmbed } from '@wongcoin/swap-sdk/react';
+```typescript
+import { SwapWidget } from '@metapolls/swap-sdk/react';
 
 function App() {
-    return (
-        <SwapEmbed
-            iframeUrl="https://metapolls.io/sdk"
-            width="100%"
-            height="600px"
-            token="0x123..." // Replace with actual token address
-            chainId={1} // Replace with desired chain ID
-        />
-    );
+  return (
+    <SwapWidget
+      token="0x..." // Token address
+      amount="1.0" // Optional amount
+      onSuccess={(txHash) => {
+        console.log('Swap successful:', txHash);
+      }}
+      onError={(error) => {
+        console.error('Swap failed:', error);
+      }}
+      className="my-swap-widget" // Optional CSS class
+      style={{ width: '500px' }} // Optional inline styles
+    />
+  );
 }
 ```
 
 ## API Reference
 
-### SwapSDK
+### Core SDK
 
-The core SDK class for programmatic interaction with the swap functionality.
+#### `SwapSDK`
 
-#### Constructor
+The main SDK class that handles the swap functionality.
 
-```typescript
-constructor(config: {
-    iframeUrl: string;
-    width: string;
-    height: string;
-    token: string;
-    chainId: number;
-})
-```
+##### Methods
 
-#### Methods
+- `initializeSwap(config: SwapConfig): Promise<void>`
+  - Initializes a new swap transaction
+  - Parameters:
+    - `config`: Configuration object containing:
+      - `token`: Token address (required)
+      - `amount`: Amount to swap (optional)
+      - `onSuccess`: Callback for successful swap (optional)
+      - `onError`: Callback for failed swap (optional)
 
-##### initializeSwap
+- `disconnect(): Promise<void>`
+  - Cleans up resources and disconnects from the provider
 
-Initializes the swap functionality and creates the iframe.
+### React Component
 
-```typescript
-async initializeSwap(): Promise<void>
-```
+#### `SwapWidget`
 
-##### disconnect
+A React component that wraps the core SDK functionality.
 
-Cleans up resources and removes the iframe.
+##### Props
 
-```typescript
-disconnect(): void
-```
-
-### SwapEmbed
-
-A React component that provides a simple way to integrate the swap functionality.
-
-#### Props
-
-```typescript
-interface SwapEmbedProps {
-    iframeUrl: string;
-    width: string;
-    height: string;
-    token: string;
-    chainId: number;
-    className?: string;
-}
-```
-
-## Features
-
-- Easy integration with React applications
-- Programmatic access through core SDK
-- Customizable iframe dimensions
-- Support for different tokens and chain IDs
-- TypeScript support
-- Modern ES modules support
+- `token`: Token address (required)
+- `amount`: Amount to swap (optional)
+- `onSuccess`: Callback for successful swap (optional)
+- `onError`: Callback for failed swap (optional)
+- `className`: CSS class name (optional)
+- `style`: Inline styles (optional)
 
 ## License
 
