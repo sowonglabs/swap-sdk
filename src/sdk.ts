@@ -62,6 +62,17 @@ export class SwapSDK {
     });
   }
 
+  private buildIframeUrl(config: SwapConfig): string {
+    const url = new URL(config.iframeUrl);
+    if (config.token) {
+      url.searchParams.set('token', config.token);
+    }
+    if (config.chainId) {
+      url.searchParams.set('chainId', config.chainId);
+    }
+    return url.toString();
+  }
+
   public async initializeSwap(config: SwapConfig): Promise<void> {
     await this.initializeProvider();
     this.setupMessageHandlers();
@@ -70,6 +81,9 @@ export class SwapSDK {
     if (!config.iframe) {
       throw new Error('Iframe element is required');
     }
+    
+    // Update iframe src with token and chainId parameters
+    config.iframe.src = this.buildIframeUrl(config);
     
     this.iframe = config.iframe;
   }

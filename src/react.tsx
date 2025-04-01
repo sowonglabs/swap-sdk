@@ -29,9 +29,9 @@ export const SwapEmbed: React.FC<SwapEmbedProps> = (props) => {
     <iframe
       ref={iframeRef}
       src={props.iframeUrl}
+      width={props.width || '100%'}
+      height={props.height || '600'}
       style={{
-        width: props.width || '100%',
-        height: props.height || '600px',
         border: 'none',
         overflow: 'hidden',
         position: 'relative',

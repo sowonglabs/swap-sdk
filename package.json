@@ -1,6 +1,6 @@
 {
     "name": "@wongcoin/swap-sdk",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "SDK for integrating swap functionality into your application",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
