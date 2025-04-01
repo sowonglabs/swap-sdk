@@ -445,4 +445,7 @@ const SwapEmbedComponent = ({
 };
 
 // Export component
-export const SwapEmbed = SwapEmbedComponent; 
+export const SwapEmbed = SwapEmbedComponent;
+
+export * from './sdk';
+export * from './react'; 
