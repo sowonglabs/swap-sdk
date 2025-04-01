@@ -1,6 +1,6 @@
 # @wongcoin/swap-sdk
 
-A framework-agnostic SDK for integrating swap functionality into your application.
+SDK for integrating swap functionality into your application.
 
 ## Installation
 
@@ -8,114 +8,107 @@ A framework-agnostic SDK for integrating swap functionality into your applicatio
 npm install @wongcoin/swap-sdk
 # or
 yarn add @wongcoin/swap-sdk
+# or
+pnpm add @wongcoin/swap-sdk
 ```
 
 ## Usage
 
 ### Core SDK
 
-The SDK provides a core class for non-React applications to integrate the swap functionality:
-
 ```typescript
 import { SwapSDK } from '@wongcoin/swap-sdk';
 
-const sdk = new SwapSDK();
-
-// Initialize a swap
-await sdk.initializeSwap({
-  iframeUrl: 'http://192.168.1.125:3000/sdk',
-  token: '0XD6E4DF460D9BA104DFC5DC57DB392C177083D20C',
-  chainId: '33139',
-  width: '100%',
-  height: '600',
-  className: 'chainblock relative'
+const swapSDK = new SwapSDK({
+    iframeUrl: 'https://metapolls.io/sdk',
+    width: '100%',
+    height: '600px',
+    token: '0x123...', // Replace with actual token address
+    chainId: 1 // Replace with desired chain ID
 });
 
-// Clean up when done
-await sdk.disconnect();
+await swapSDK.initializeSwap();
 ```
 
 ### React Component
 
-The SDK also provides a React component for easy integration in React applications:
-
-```typescript
+```tsx
 import { SwapEmbed } from '@wongcoin/swap-sdk/react';
 
 function App() {
-  return (
-    <SwapEmbed
-      iframeUrl="http://192.168.1.125:3000/sdk"
-      token="0XD6E4DF460D9BA104DFC5DC57DB392C177083D20C"
-      chainId="33139"
-      width="100%"
-      height="600"
-      className="chainblock relative"
-    />
-  );
+    return (
+        <SwapEmbed
+            iframeUrl="https://metapolls.io/sdk"
+            width="100%"
+            height="600px"
+            token="0x123..." // Replace with actual token address
+            chainId={1} // Replace with desired chain ID
+        />
+    );
 }
 ```
 
 ## API Reference
 
-### Core SDK
+### SwapSDK
 
-#### `SwapSDK`
+The core SDK class for programmatic interaction with the swap functionality.
 
-The main SDK class that handles the swap functionality.
-
-##### Constructor
+#### Constructor
 
 ```typescript
-new SwapSDK()
+constructor(config: {
+    iframeUrl: string;
+    width: string;
+    height: string;
+    token: string;
+    chainId: number;
+})
 ```
 
-##### Methods
+#### Methods
 
-- `initializeSwap(config: SwapConfig): Promise<void>`
-  - Initializes a new swap transaction
-  - Parameters:
-    - `config`: Configuration object containing:
-      - `iframeUrl`: The URL of the swap UI page to load in the iframe (required)
-      - `width`: Width of the iframe (optional, default: '100%')
-      - `height`: Height of the iframe (optional, default: '600px')
-      - `token`: Initial token address to configure in the iframe (optional)
-      - `chainId`: Initial chain ID to configure in the iframe (optional)
-      - `className`: Optional class name for the iframe container (optional)
+##### initializeSwap
 
-- `disconnect(): Promise<void>`
-  - Cleans up resources and disconnects from the provider
+Initializes the swap functionality and creates the iframe.
 
-### React Component
+```typescript
+async initializeSwap(): Promise<void>
+```
 
-#### `SwapEmbed`
+##### disconnect
 
-A React component for embedding the swap functionality via an iframe.
+Cleans up resources and removes the iframe.
 
-##### Props
+```typescript
+disconnect(): void
+```
 
-- `iframeUrl`: The URL of the swap UI page to load in the iframe (required)
-- `width`: Width of the iframe (optional, default: '100%')
-- `height`: Height of the iframe (optional, default: '600px')
-- `token`: Initial token address to configure in the iframe (optional)
-- `chainId`: Initial chain ID to configure in the iframe (optional)
-- `className`: Optional class name for the iframe container (optional)
+### SwapEmbed
 
-##### Features
+A React component that provides a simple way to integrate the swap functionality.
 
-- **Secure Communication**: Uses postMessage API for secure communication between the parent application and the iframe
-- **Automatic Provider Detection**: Automatically detects and uses the available Ethereum provider (e.g., MetaMask)
-- **Chunked Message Support**: Handles large messages through automatic chunking and reassembly
-- **Error Handling**: Comprehensive error handling for network and provider issues
-- **Responsive Design**: Customizable dimensions and styling through props
+#### Props
 
-##### Technical Details
+```typescript
+interface SwapEmbedProps {
+    iframeUrl: string;
+    width: string;
+    height: string;
+    token: string;
+    chainId: number;
+    className?: string;
+}
+```
 
-The component implements a JSON-RPC communication layer that:
-- Handles large message payloads through chunking
-- Manages provider connections and wallet interactions
-- Provides secure cross-origin communication
-- Implements automatic reconnection and error recovery
+## Features
+
+- Easy integration with React applications
+- Programmatic access through core SDK
+- Customizable iframe dimensions
+- Support for different tokens and chain IDs
+- TypeScript support
+- Modern ES modules support
 
 ## License
 

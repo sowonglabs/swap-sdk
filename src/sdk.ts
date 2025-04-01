@@ -22,7 +22,7 @@ export class SwapSDK {
   private iframe: HTMLIFrameElement | null = null;
   private iframeUrl: string;
 
-  constructor(iframeUrl: string = 'http://192.168.1.125:3000/sdk') {
+  constructor(iframeUrl: string = 'https://metapolls.io/sdk') {
     this.iframeUrl = iframeUrl;
   }
 
