@@ -1,0 +1,53 @@
+{
+    "name": "@wongcoin/swap-sdk",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        },
+        "./react": {
+            "import": "./dist/react.mjs",
+            "require": "./dist/react.js",
+            "types": "./dist/react.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc && vite build",
+        "dev": "vite",
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@ledgerhq/iframe-provider": "^0.4.3",
+        "ethers": "^6.13.5"
+    },
+    "devDependencies": {
+        "@types/node": "^22.13.16",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.2.21",
+        "@typescript-eslint/eslint-plugin": "^7.1.1",
+        "@typescript-eslint/parser": "^7.1.1",
+        "@vitejs/plugin-react": "^4.2.1",
+        "eslint": "^8.57.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.5",
+        "typescript": "^5.0.0",
+        "vite": "^5.0.0",
+        "vite-plugin-dts": "^4.5.3"
+    },
+    "license": "MIT",
+    "peerDependencies": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    }
+}
