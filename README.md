@@ -38,7 +38,7 @@ await sdk.disconnect();
 ### React Component
 
 ```typescript
-import { SwapWidget } from '@metapolls/swap-sdk/react';
+import { SwapWidget } from '@metapolls/swap-sdk';
 
 function App() {
   return (
