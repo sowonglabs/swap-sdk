@@ -261,16 +261,24 @@ export class SwapSDK {
     // Get the origin from the iframe URL
     const expectedOrigin = new URL(this.iframeUrl).origin;
     
-    // In production, strictly check the origin
+    // Normalize origins by removing www if present
+    const normalizeOrigin = (origin: string) => {
+      return origin.replace(/^https?:\/\/www\./, 'https://');
+    };
+    
+    const normalizedExpectedOrigin = normalizeOrigin(expectedOrigin);
+    const normalizedEventOrigin = normalizeOrigin(event.origin);
+    
+    // In production, check the normalized origin
     if (process.env.NODE_ENV === 'production') {
-      if (event.origin !== expectedOrigin) {
+      if (normalizedEventOrigin !== normalizedExpectedOrigin) {
         console.warn(`Rejected message from unexpected origin: ${event.origin}`);
         return;
       }
     } else {
       // In development, allow localhost and similar origins
       if (!event.origin.match(/^(https?:\/\/localhost|https?:\/\/127\.0\.0\.1|https?:\/\/\[::1\]|file:)/) && 
-          event.origin !== expectedOrigin) {
+          normalizedEventOrigin !== normalizedExpectedOrigin) {
         console.warn(`Rejected message from unexpected origin: ${event.origin}`);
         return;
       }
